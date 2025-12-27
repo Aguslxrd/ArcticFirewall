@@ -6,8 +6,22 @@ import java.io.InputStreamReader;
 @Service
 public class UfwExecutor {
 
+    private static final Object UFW_LOCK = new Object();
+
     public String status() {
-        return execute("ufw" , "status", "verbose");
+        return execute("sudo","ufw" , "status", "verbose");
+    }
+
+    public String enable() {
+        synchronized (UFW_LOCK) {
+            return execute("sudo", "ufw", "--force", "enable");
+        }
+    }
+
+    public String disable() {
+        synchronized (UFW_LOCK) {
+            return execute("sudo", "ufw", "disable");
+        }
     }
 
     //Esto ejecuta ufw y captura su salida.

@@ -2,10 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>ArcticFirewall</title>
-    <meta charset="UTF-8">
 </head>
 <body>
-<h2>Estado de UFW</h2>
-<pre th:text="${status}"></pre>
+
+<h1>Estado de UFW</h1>
+
+<form th:action="@{/ufw/enable}" method="post">
+    <button type="submit">Enable UFW</button>
+</form>
+
+<form th:action="@{/ufw/disable}" method="post">
+    <button type="submit">Disable UFW</button>
+</form>
+
+<hr>
+
+<pre th:text="${status}">
+Cargando estado...
+</pre>
+
 </body>
 </html>
