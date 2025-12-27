@@ -1,4 +1,4 @@
-package com.damiansuffo.ArcticFirewall;
+package com.damiansuffo.ArcticFirewall.Ufw;
 
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
