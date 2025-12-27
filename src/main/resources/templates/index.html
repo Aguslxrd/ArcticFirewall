@@ -1,25 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>ArcticFirewall</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2, h3 { margin-bottom: 10px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        button { cursor: pointer; padding: 5px 10px; }
+        .protected { color: red; font-weight: bold; }
+        .message { margin: 10px 0; padding: 8px; border-radius: 5px; background-color: #f0f0f0; }
+        .status-active { color: green; font-weight: bold; }
+        .status-inactive { color: red; font-weight: bold; }
+        form { display: inline; }
+        input, select { margin: 0 5px; padding: 3px; }
+    </style>
 </head>
 <body>
+<h1>🔥 ArcticFirewall</h1>
 
-<h1>Estado de UFW</h1>
+<h2>Estado UFW:</h2>
+<p>
+    <span th:if="${ufwActive}" class="status-active">ACTIVO</span>
+    <span th:if="${!ufwActive}" class="status-inactive">INACTIVO</span>
+</p>
 
-<form th:action="@{/ufw/enable}" method="post">
+<form method="post" th:action="@{/ufw/enable}">
     <button type="submit">Enable UFW</button>
 </form>
-
-<form th:action="@{/ufw/disable}" method="post">
+<form method="post" th:action="@{/ufw/disable}">
     <button type="submit">Disable UFW</button>
 </form>
 
-<hr>
+<h3 th:if="${message}" class="message" th:text="${message}"></h3>
 
-<pre th:text="${status}">
-Cargando estado...
-</pre>
+<h2>Reglas activas:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Puerto</th>
+        <th>Acción</th>
+        <th>Origen</th>
+        <th>Eliminar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rule : ${rules}">
+        <td th:text="${rule.number}"></td>
+        <td th:text="${rule.port}"></td>
+        <td th:text="${rule.action}"></td>
+        <td th:text="${rule.from}"></td>
+        <td>
+            <form th:if="!${rule.protectedRule}" method="post"
+                  th:action="@{'/rules/delete/' + ${rule.number}}">
+                <button type="submit">❌</button>
+            </form>
+            <span th:if="${rule.protectedRule}" class="protected">🔒</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Agregar nueva regla</h2>
+<form method="post" th:action="@{/rules/add}">
+    Puerto: <input type="text" name="port" placeholder="ej: 8080/tcp" required>
+    Acción:
+    <select name="action">
+        <option value="allow">ALLOW</option>
+        <option value="deny">DENY</option>
+        <option value="reject">REJECT</option>
+    </select>
+    <button type="submit">Agregar</button>
+</form>
 
 </body>
 </html>
