@@ -12,7 +12,7 @@ Todo esto con una interfaz basada en **Thymeleaf**. Próximamente se migrará la
 
 ---
 
-## 🚀 Tecnologías
+## Tecnologías
 
 - **Backend:** Java Spring Boot 3  
 - **Frontend:** Thymeleaf + HTML/CSS  
@@ -21,7 +21,7 @@ Todo esto con una interfaz basada en **Thymeleaf**. Próximamente se migrará la
 
 ---
 
-## 🛠️ Instalación y Configuración
+## Instalación y Configuración
 
 ### Requisitos
 
