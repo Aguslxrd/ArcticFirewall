@@ -9,6 +9,7 @@ ArcFirewall es una interfaz web para administrar reglas de firewall UFW en servi
 - Eliminar reglas no protegidas (SSH, HTTP, HTTPS).  
 
 Todo esto con una interfaz basada en **Thymeleaf**. Próximamente se migrará la parte frontend a **Angular**.
+La idea de este proyecto es que a futuro cuente con endpoints protegidos por tokens y log-in.
 
 ---
 
